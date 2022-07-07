@@ -15,8 +15,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
 	res.send('hello world');
 });
-app.use('/api/topMovies', topMoviesRouter);
-app.use('/api/topTvSeries', topTvSeriesRouter);
+app.use('/api/topmovies', topMoviesRouter);
+app.use('/api/toptvseries', topTvSeriesRouter);
 
 const PORT = process.env.PORT || 3001;
 const start = async () => {
