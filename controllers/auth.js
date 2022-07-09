@@ -16,9 +16,14 @@ const login = async (req, res) => {
 		return res.status(500).json({ status: 'error', error_message: 'Please provide email and password' });
 	}
 
-	const user = await User.findOne({ email, password });
+	const user = await User.findOne({ email });
 	if (!user) {
-		return res.status(500).json({ status: 'error', error_message: 'No user found' });
+		return res.status(500).json({ status: 'error', error_message: 'No user found with that email' });
+	}
+
+	const isPasswordCorrect = await user.comparePasswords(password);
+	if (!isPasswordCorrect) {
+		return res.status(500).json({ status: 'error', error_message: 'Invalid password' });
 	}
 
 	res.status(200).json(user);

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
 	name: {
@@ -19,5 +20,17 @@ const UserSchema = new mongoose.Schema({
 		minLength: 6
 	}
 });
+
+//hash the user password before saving to the database
+UserSchema.pre('save', async function() {
+	const salt = await bcrypt.genSalt(10);
+	this.password = await bcrypt.hash(this.password, salt);
+});
+
+//returns a boolean for whether the password the user typed in matches the password in the database
+UserSchema.methods.comparePasswords = async function(userPassword) {
+	const isMatch = await bcrypt.compare(userPassword, this.password);
+	return isMatch;
+};
 
 module.exports = mongoose.model('User', UserSchema);
