@@ -3,7 +3,8 @@ const User = require('../models/User');
 const register = async (req, res) => {
 	try {
 		const user = await User.create({ ...req.body });
-		res.status(200).json(user);
+		const token = user.createJWT();
+		res.status(200).json({ user, token });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ status: 'error', error_message: 'Duplicate email' });
@@ -26,7 +27,8 @@ const login = async (req, res) => {
 		return res.status(500).json({ status: 'error', error_message: 'Invalid password' });
 	}
 
-	res.status(200).json(user);
+	const token = user.createJWT();
+	res.status(200).json({ user, token });
 };
 
 module.exports = { register, login };

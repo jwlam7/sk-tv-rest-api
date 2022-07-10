@@ -8,6 +8,8 @@ const connectDB = require('./db/connectDB');
 const topMoviesRouter = require('./routes/topMovies');
 const topTvSeriesRouter = require('./routes/topTvSeries');
 const authRouter = require('./routes/auth');
+//middlewares
+const authenticateUser = require('./middleware/auth');
 
 app.use(cors());
 app.use(express.json());
@@ -19,6 +21,9 @@ app.get('/', (req, res) => {
 app.use('/api/topmovies', topMoviesRouter);
 app.use('/api/toptvseries', topTvSeriesRouter);
 app.use('/auth', authRouter);
+app.get('/secret', authenticateUser, (req, res) => {
+	res.send('secret');
+});
 
 const PORT = process.env.PORT || 3001;
 const start = async () => {
