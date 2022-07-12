@@ -19,7 +19,7 @@ const login = async (req, res) => {
 
 	const user = await User.findOne({ email });
 	if (!user) {
-		return res.status(500).json({ status: 'error', error_message: 'No user found with that email' });
+		return res.status(500).json({ status: 'error', error_message: `No user found with email: ${email}` });
 	}
 
 	const isPasswordCorrect = await user.comparePasswords(password);

@@ -8,6 +8,7 @@ const connectDB = require('./db/connectDB');
 const topMoviesRouter = require('./routes/topMovies');
 const topTvSeriesRouter = require('./routes/topTvSeries');
 const authRouter = require('./routes/auth');
+const postsRouter = require('./routes/posts');
 //middlewares
 const authenticateUser = require('./middleware/auth');
 
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 app.use('/api/topmovies', topMoviesRouter);
 app.use('/api/toptvseries', topTvSeriesRouter);
 app.use('/auth', authRouter);
+app.use('/posts', postsRouter);
 app.get('/secret', authenticateUser, (req, res) => {
 	res.send('secret');
 });
