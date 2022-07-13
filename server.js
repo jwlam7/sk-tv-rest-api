@@ -10,6 +10,7 @@ const topTvSeriesRouter = require('./routes/topTvSeries');
 const authRouter = require('./routes/auth');
 const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
+const notFoundMiddleware = require('./middleware/notFound');
 
 app.use(cors());
 app.use(express.json());
@@ -23,6 +24,7 @@ app.use('/api/toptvseries', topTvSeriesRouter);
 app.use('/auth', authRouter);
 app.use('/posts', postsRouter);
 app.use('/posts', commentsRouter);
+app.use(notFoundMiddleware);
 
 const PORT = process.env.PORT || 3001;
 const start = async () => {
