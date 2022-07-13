@@ -10,7 +10,7 @@ const getPost = async (req, res) => {
 	const post = await Post.findOne({ _id: postId });
 
 	if (!post) {
-		return res.status(500).json({ status: 'error', error_message: `No post found with id: ${postId}` });
+		return res.status(404).json({ status: 'error', error_message: `No post found with id: ${postId}` });
 	}
 
 	res.status(200).json(post);
@@ -22,7 +22,7 @@ const createPost = async (req, res) => {
 		res.status(200).json(post);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ status: 'error', error_message: 'Please fill out all fields' });
+		res.status(400).json({ status: 'error', error_message: 'Please fill out all fields' });
 	}
 };
 const updatePost = async (req, res) => {
@@ -31,13 +31,13 @@ const updatePost = async (req, res) => {
 		const post = await Post.findByIdAndUpdate({ _id: postId }, req.body, { new: true, runValidators: true });
 
 		if (!post) {
-			return res.status(500).json({ status: 'error', error_message: `No post found with id: ${postId}` });
+			return res.status(404).json({ status: 'error', error_message: `No post found with id: ${postId}` });
 		}
 
 		res.status(200).json(post);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ status: 'error', error_message: 'Please fill out all fields' });
+		res.status(400).json({ status: 'error', error_message: 'Please fill out all fields' });
 	}
 };
 const deletePost = async (req, res) => {
@@ -47,7 +47,7 @@ const deletePost = async (req, res) => {
 	const post = await Post.findByIdAndRemove({ _id: postId });
 
 	if (!post) {
-		return res.status(500).json({ status: 'error', error_message: `No post found with id: ${postId}` });
+		return res.status(404).json({ status: 'error', error_message: `No post found with id: ${postId}` });
 	}
 
 	res.status(200).json({ msg: 'post deleted successfully!' });

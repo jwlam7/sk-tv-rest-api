@@ -10,7 +10,7 @@ const getComment = async (req, res) => {
 	const comment = await Comment.findOne({ _id: commentId });
 
 	if (!comment) {
-		return res.status(500).json({ status: 'error', error_message: `No comment found with id: ${commentId}` });
+		return res.status(404).json({ status: 'error', error_message: `No comment found with id: ${commentId}` });
 	}
 
 	res.status(200).json(comment);
@@ -23,7 +23,7 @@ const createComment = async (req, res) => {
 		res.status(200).json(comment);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ status: 'error', error_message: 'Please fill out all fields' });
+		res.status(400).json({ status: 'error', error_message: 'Please fill out all fields' });
 	}
 };
 const updateComment = async (req, res) => {
@@ -35,13 +35,13 @@ const updateComment = async (req, res) => {
 		});
 
 		if (!comment) {
-			return res.status(500).json({ status: 'error', error_message: `No comment found with id: ${commentId}` });
+			return res.status(404).json({ status: 'error', error_message: `No comment found with id: ${commentId}` });
 		}
 
 		res.status(200).json(comment);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ status: 'error', error_message: 'Please fill out all fields' });
+		res.status(400).json({ status: 'error', error_message: 'Please fill out all fields' });
 	}
 };
 const deleteComment = async (req, res) => {
@@ -49,7 +49,7 @@ const deleteComment = async (req, res) => {
 	const comment = await Comment.findByIdAndRemove({ _id: commentId });
 
 	if (!comment) {
-		return res.status(500).json({ status: 'error', error_message: `No comment found with id: ${commentId}` });
+		return res.status(404).json({ status: 'error', error_message: `No comment found with id: ${commentId}` });
 	}
 
 	res.status(200).json({ msg: 'comment deleted successfully!' });
