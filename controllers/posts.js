@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
 const getAllPosts = async (req, res) => {
 	const posts = await Post.find({}).sort('createdAt');
@@ -41,6 +42,8 @@ const updatePost = async (req, res) => {
 };
 const deletePost = async (req, res) => {
 	const { postId } = req.params;
+	//delete all comments associated with this post
+	await Comment.deleteMany({ post: postId });
 	const post = await Post.findByIdAndRemove({ _id: postId });
 
 	if (!post) {
