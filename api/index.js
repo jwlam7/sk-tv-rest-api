@@ -3,14 +3,14 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 //DB connection
-const connectDB = require('./db/connectDB');
+const connectDB = require('../db/connectDB');
 //routers
-const topMoviesRouter = require('./routes/topMovies');
-const topTvSeriesRouter = require('./routes/topTvSeries');
-const authRouter = require('./routes/auth');
-const postsRouter = require('./routes/posts');
-const commentsRouter = require('./routes/comments');
-const notFoundMiddleware = require('./middleware/notFound');
+const topMoviesRouter = require('../routes/topMovies');
+const topTvSeriesRouter = require('../routes/topTvSeries');
+const authRouter = require('../routes/auth');
+const postsRouter = require('../routes/posts');
+const commentsRouter = require('../routes/comments');
+const notFoundMiddleware = require('../middleware/notFound');
 
 app.use(cors());
 app.use(express.json());
